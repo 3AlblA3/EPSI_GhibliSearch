@@ -1,1 +1,59 @@
-<p>movie-details works!</p>
+@if (movie; as movieData) {
+  <section class="movie-details">
+    <a class="back-link" routerLink="/list">← Retour à la liste</a>
+
+    <h1>{{ movieData.title }}</h1>
+
+    <img [src]="movieData.movie_banner" [alt]="movieData.title" class="banner" />
+    <img [src]="movieData.image" [alt]="movieData.title" class="poster" />
+
+    <p><strong>Id :</strong> {{ movieData.id }}</p>
+    <p><strong>Titre original :</strong> {{ movieData.original_title }}</p>
+    <p><strong>Titre romanisé :</strong> {{ movieData.original_title_romanised }}</p>
+    <p><strong>Description :</strong> {{ movieData.description }}</p>
+    <p><strong>Réalisateur :</strong> {{ movieData.director }}</p>
+    <p><strong>Producteur :</strong> {{ movieData.producer }}</p>
+    <p><strong>Date de sortie :</strong> {{ movieData.release_date }}</p>
+    <p><strong>Durée :</strong> {{ movieData.running_time }} min</p>
+    <p><strong>Score RT :</strong> {{ movieData.rt_score }}</p>
+    <p><strong>URL :</strong> <a [href]="movieData.url" target="_blank" rel="noopener noreferrer">{{ movieData.url }}</a></p>
+
+    <div>
+      <strong>People :</strong>
+      <ul>
+        @for (person of movieData.people; track person) {
+          <li>{{ person }}</li>
+        }
+      </ul>
+    </div>
+
+    <div>
+      <strong>Species :</strong>
+      <ul>
+        @for (specie of movieData.species; track specie) {
+          <li>{{ specie }}</li>
+        }
+      </ul>
+    </div>
+
+    <div>
+      <strong>Locations :</strong>
+      <ul>
+        @for (location of movieData.locations; track location) {
+          <li>{{ location }}</li>
+        }
+      </ul>
+    </div>
+
+    <div>
+      <strong>Vehicles :</strong>
+      <ul>
+        @for (vehicle of movieData.vehicles; track vehicle) {
+          <li>{{ vehicle }}</li>
+        }
+      </ul>
+    </div>
+  </section>
+} @else {
+  <p>Chargement du film...</p>
+}

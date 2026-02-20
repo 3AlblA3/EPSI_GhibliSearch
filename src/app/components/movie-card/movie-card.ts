@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, input } from '@angular/core';
-import { Movie } from '../../interfaces/movie';
-import { MoviesService } from '../../services/movies.service';
+import { Component, input, output } from '@angular/core';
+import type { Movie } from '../../interfaces/movie';
 
 @Component({
   selector: 'app-movie-card',
@@ -11,8 +10,16 @@ import { MoviesService } from '../../services/movies.service';
   styleUrl: './movie-card.scss',
 })
 export class MovieCard {
- // Input passe la tâche dans le composant parent
+  // Input passe le film dans le composant parent
   movie = input<Movie>();
-  private moviesService : MoviesService = inject(MoviesService);
+  movieSelected = output<string>();
+
+  public showDetails(): void {
+    const movieId = this.movie()?.id;
+
+    if (movieId) {
+      this.movieSelected.emit(movieId);
+    }
+  }
 
 }

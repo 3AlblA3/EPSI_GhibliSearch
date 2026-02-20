@@ -1,6 +1,5 @@
- <div class="movie-card">
-    <img [src]="movie.image" [alt]="movie.title" />
-    <h2>{{ movie.title }}</h2>
-    <p>{{ movie.release_date }}</p>
-    <a [routerLink]="['/movie', movie.id]">Voir les détails</a>
+ <div class="movie-card" (click)="showDetails()">
+    <img [src]="movie()?.image" [alt]="movie()?.title" />
+    <h2>{{ movie()?.title }}</h2>
+    <p>{{ movie()?.release_date }}</p>
 </div>  
