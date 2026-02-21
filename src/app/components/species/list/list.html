@@ -1,9 +1,14 @@
 <div class="list-page">
+  <form class="search-form" [formGroup]="searchForm">
+    <div class="search-container">
+      <label>Nom</label>
+      <input type="text" formControlName="searchName" placeholder="Chercher par nom" />
+    </div>
+  </form>
+
   <ul class="resource-list">
-    @for (specie of species; track specie.id) {
-      <li>
-        <a [routerLink]="['/species', specie.id]">{{ specie.name }}</a>
-      </li>
-    }
+    <li *ngFor="let specie of filteredSpecies; trackBy: trackById">
+      <a [routerLink]="['/species', specie.id]" [textContent]="specie.name"></a>
+    </li>
   </ul>
 </div>

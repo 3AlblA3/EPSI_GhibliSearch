@@ -1,9 +1,14 @@
 <div class="list-page">
+  <form class="search-form" [formGroup]="searchForm">
+    <div class="search-container">
+      <label>Nom</label>
+      <input type="text" formControlName="searchName" placeholder="Chercher par nom" />
+    </div>
+  </form>
+
   <ul class="resource-list">
-    @for (location of locations; track location.id) {
-      <li>
-        <a [routerLink]="['/locations', location.id]">{{ location.name }}</a>
-      </li>
-    }
+    <li *ngFor="let location of filteredLocations; trackBy: trackById">
+      <a [routerLink]="['/locations', location.id]" [textContent]="location.name"></a>
+    </li>
   </ul>
 </div>
