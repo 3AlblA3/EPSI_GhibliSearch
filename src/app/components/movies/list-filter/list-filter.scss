@@ -1,0 +1,32 @@
+.search-form {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: end;
+	gap: 1rem;
+	margin-bottom: 1.5rem;
+}
+
+.search-container {
+	display: flex;
+	flex-direction: column;
+	gap: 0.35rem;
+	min-width: 220px;
+}
+
+label {
+	font-size: 0.9rem;
+}
+
+input {
+	width: 100%;
+	padding: 0.55rem 0.7rem;
+	border-radius: 8px;
+	border: 1px solid;
+}
+
+button {
+	padding: 0.55rem 0.9rem;
+	border-radius: 8px;
+	border: 1px solid;
+	cursor: pointer;
+}

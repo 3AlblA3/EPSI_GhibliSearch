@@ -1,7 +1,6 @@
-
-<div>
+<div class="list-page">
     <app-list-filter></app-list-filter>
-    <div class="movie-list">
+    <div class="list">
         @for(movie of movies; track movie.id) {
         <app-movie-card [movie]="movie" (movieSelected)="openMovieDetails($event)"></app-movie-card>
         }

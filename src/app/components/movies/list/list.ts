@@ -1,11 +1,11 @@
 import { ChangeDetectorRef, Component, inject } from '@angular/core';
-import type { Movie } from '../../interfaces/movie';
-import { MoviesService } from '../../services/movies.service';
+import { MoviesService } from '../../../services/movies.service';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ListFilter } from '../list-filter/list-filter';
 import { MovieCard } from '../movie-card/movie-card';
+import type { Movie } from '../../../interfaces/movie';
 
 @Component({
   selector: 'app-list',

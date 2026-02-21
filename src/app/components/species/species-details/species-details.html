@@ -1,0 +1,34 @@
+@if (specie; as speciesData) {
+  <section class="resource-details">
+    <a class="back-link" routerLink="/species">← Retour à la liste</a>
+
+    <h1>{{ speciesData.name }}</h1>
+
+    <p><strong>Id :</strong> {{ speciesData.id }}</p>
+    <p><strong>Classification :</strong> {{ speciesData.classification }}</p>
+    <p><strong>Yeux :</strong> {{ speciesData.eye_colors }}</p>
+    <p><strong>Cheveux :</strong> {{ speciesData.hair_colors }}</p>
+
+    <div>
+      <strong>People :</strong>
+      <ul>
+        @for (person of speciesData.people; track person) {
+          <li>{{ person }}</li>
+        }
+      </ul>
+    </div>
+
+    <div>
+      <strong>Films :</strong>
+      <ul>
+        @for (film of speciesData.films; track film) {
+          <li>{{ film }}</li>
+        }
+      </ul>
+    </div>
+
+    <p><strong>URL :</strong> <a [href]="speciesData.url" target="_blank" rel="noopener noreferrer">{{ speciesData.url }}</a></p>
+  </section>
+} @else {
+  <p>Chargement...</p>
+}

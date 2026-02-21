@@ -1,0 +1,26 @@
+@if (vehicle; as vehicleData) {
+  <section class="resource-details">
+    <a class="back-link" routerLink="/vehicles">← Retour à la liste</a>
+
+    <h1>{{ vehicleData.name }}</h1>
+
+    <p><strong>Id :</strong> {{ vehicleData.id }}</p>
+    <p><strong>Description :</strong> {{ vehicleData.description }}</p>
+    <p><strong>Classe :</strong> {{ vehicleData.vehicle_class }}</p>
+    <p><strong>Longueur :</strong> {{ vehicleData.length }}</p>
+    <p><strong>Pilote :</strong> {{ vehicleData.pilot }}</p>
+
+    <div>
+      <strong>Films :</strong>
+      <ul>
+        @for (film of vehicleData.films; track film) {
+          <li>{{ film }}</li>
+        }
+      </ul>
+    </div>
+
+    <p><strong>URL :</strong> <a [href]="vehicleData.url" target="_blank" rel="noopener noreferrer">{{ vehicleData.url }}</a></p>
+  </section>
+} @else {
+  <p>Chargement...</p>
+}

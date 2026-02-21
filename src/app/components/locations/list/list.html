@@ -1,0 +1,9 @@
+<div class="list-page">
+  <ul class="resource-list">
+    @for (location of locations; track location.id) {
+      <li>
+        <a [routerLink]="['/locations', location.id]">{{ location.name }}</a>
+      </li>
+    }
+  </ul>
+</div>

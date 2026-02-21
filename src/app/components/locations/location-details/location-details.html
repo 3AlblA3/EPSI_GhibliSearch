@@ -1,0 +1,34 @@
+@if (location; as locationData) {
+  <section class="resource-details">
+    <a class="back-link" routerLink="/locations">← Retour à la liste</a>
+
+    <h1>{{ locationData.name }}</h1>
+
+    <p><strong>Id :</strong> {{ locationData.id }}</p>
+    <p><strong>Climat :</strong> {{ locationData.climate }}</p>
+    <p><strong>Terrain :</strong> {{ locationData.terrain }}</p>
+    <p><strong>Eau en surface :</strong> {{ locationData.surface_water }}</p>
+
+    <div>
+      <strong>Résidents :</strong>
+      <ul>
+        @for (resident of locationData.residents; track resident) {
+          <li>{{ resident }}</li>
+        }
+      </ul>
+    </div>
+
+    <div>
+      <strong>Films :</strong>
+      <ul>
+        @for (film of locationData.films; track film) {
+          <li>{{ film }}</li>
+        }
+      </ul>
+    </div>
+
+    <p><strong>URL :</strong> <a [href]="locationData.url" target="_blank" rel="noopener noreferrer">{{ locationData.url }}</a></p>
+  </section>
+} @else {
+  <p>Chargement...</p>
+}

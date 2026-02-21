@@ -1,0 +1,42 @@
+:root {
+	--color-primary: #355872;
+	--color-secondary: #f7f8f0;
+	--color-footer: #263542;
+}
+
+body {
+	margin: 0;
+}
+
+h1,
+h2,
+h3 {
+	color: var(--color-primary);
+}
+
+.list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.list-page {
+  padding: 1.5rem;
+}
+
+.resource-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.resource-list a {
+  text-decoration: none;
+  color: var(--color-primary);
+}

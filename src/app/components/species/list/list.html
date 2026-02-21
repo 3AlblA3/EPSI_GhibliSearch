@@ -1,0 +1,9 @@
+<div class="list-page">
+  <ul class="resource-list">
+    @for (specie of species; track specie.id) {
+      <li>
+        <a [routerLink]="['/species', specie.id]">{{ specie.name }}</a>
+      </li>
+    }
+  </ul>
+</div>

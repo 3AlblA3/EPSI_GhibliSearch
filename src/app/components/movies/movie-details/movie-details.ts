@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { MoviesService } from '../../services/movies.service';
+import { MoviesService } from '../../../services/movies.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import type { Movie } from '../../interfaces/movie';
+import type { Movie } from '../../../interfaces/movie';
 
 @Component({
   selector: 'app-movie-details',
