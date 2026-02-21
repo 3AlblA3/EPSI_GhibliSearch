@@ -1,7 +1,16 @@
 <div class="list-page">
-    <app-list-filter></app-list-filter>
+    <form class="search-form" [formGroup]="searchForm">
+        <div class="search-container">
+            <label>Titre</label>
+            <input type="text" formControlName="searchName" placeholder="Chercher par titre" />
+        </div>
+        <div class="search-container">
+            <label>Date de sortie</label>
+            <input type="text" formControlName="searchDate" placeholder="Chercher par date de sortie" />
+        </div>
+    </form>
     <div class="list">
-        @for(movie of movies; track movie.id) {
+        @for(movie of filteredMovies; track movie.id) {
         <app-movie-card [movie]="movie" (movieSelected)="openMovieDetails($event)"></app-movie-card>
         }
     </div>

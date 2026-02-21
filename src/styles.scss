@@ -39,4 +39,9 @@ h3 {
 .resource-list a {
   text-decoration: none;
   color: var(--color-primary);
+  
+}
+
+.resource-list a:hover {
+  text-decoration: underline;
 }

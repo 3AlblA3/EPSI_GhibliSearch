@@ -2,12 +2,28 @@
   padding: 1.5rem;
 }
 
-
-.list {
+.search-form {
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 1.25rem;
-  align-items: flex-start;
-  justify-content: center;
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  background-color: var(--color-secondary);
+}
+
+.search-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.search-container label {
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+.search-container input {
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--color-primary);
+  border-radius: 0.5rem;
+  background-color: #fff;
 }
