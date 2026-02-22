@@ -45,8 +45,8 @@ export class MoviesService {
       .get<Movie>(`${this.apiUrl}${id}`)
       .pipe(
         catchError((error) => this.handleError(error)),
+        // SwitchMap pour récupérer les liens associés (people, species, locations, vehicles) pour le film
         switchMap((movie) => {
-          // Récupérer les liens associés (people, species, locations, vehicles) pour le film
           const peopleLinks$ = movie.people.length
           // forkJoin pour récupérer les noms des personnes associées au film
             ? forkJoin(
