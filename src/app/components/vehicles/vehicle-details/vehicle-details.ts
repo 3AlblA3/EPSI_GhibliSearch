@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import type { Vehicle } from '../../../interfaces/vehicle';
-import { VehiclesService } from '../../../services/vehicles.service';
+import { VehiclesService, type VehicleRelatedLink } from '../../../services/vehicles.service';
 
 @Component({
   selector: 'app-vehicle-details',
@@ -18,6 +18,8 @@ export class VehicleDetails {
   private readonly cdr = inject(ChangeDetectorRef);
 
   vehicle: Vehicle | null = null;
+  pilotLink: VehicleRelatedLink | null = null;
+  filmLinks: VehicleRelatedLink[] = [];
 
   constructor() {
     const vehicleId = this.route.snapshot.paramMap.get('id');
@@ -29,8 +31,10 @@ export class VehicleDetails {
     this.vehiclesService
       .getVehicle(vehicleId)
       .pipe(takeUntilDestroyed())
-      .subscribe((vehicle) => {
+      .subscribe(({ vehicle, pilot, films }) => {
         this.vehicle = vehicle;
+        this.pilotLink = pilot;
+        this.filmLinks = films;
         this.cdr.markForCheck();
       });
   }

@@ -1,26 +1,33 @@
 @if (person; as personData) {
   <section class="resource-details">
-    <a class="back-link" routerLink="/people">← Retour à la liste</a>
+    <a class="back-link details-link" routerLink="/people">← Retour à la liste</a>
 
     <h1>{{ personData.name }}</h1>
 
     <p><strong>Id :</strong> {{ personData.id }}</p>
-    <p><strong>Genre :</strong> {{ personData.gender }}</p>
-    <p><strong>Âge :</strong> {{ personData.age }}</p>
-    <p><strong>Couleur des yeux :</strong> {{ personData.eye_color }}</p>
-    <p><strong>Couleur des cheveux :</strong> {{ personData.hair_color }}</p>
-    <p><strong>Espèce :</strong> {{ personData.species }}</p>
+    <p><strong>Gender :</strong> {{ personData.gender }}</p>
+    <p><strong>Age :</strong> {{ personData.age }}</p>
+    <p><strong>Eye Color :</strong> {{ personData.eye_color }}</p>
+    <p><strong>Hair Color :</strong> {{ personData.hair_color }}</p>
+    <p>
+      <strong>Species :</strong>
+      @if (speciesLink) {
+        <a class="details-link" [routerLink]="speciesLink.route">{{ speciesLink.name }}</a>
+      } @else {
+        {{ personData.species }}
+      }
+    </p>
 
     <div>
       <strong>Films :</strong>
       <ul>
-        @for (film of personData.films; track film) {
-          <li>{{ film }}</li>
+        @for (film of filmLinks; track film.id) {
+          <li><a class="details-link" [routerLink]="film.route">{{ film.name }}</a></li>
         }
       </ul>
     </div>
 
-    <p><strong>URL :</strong> <a [href]="personData.url" target="_blank" rel="noopener noreferrer">{{ personData.url }}</a></p>
+    <p><strong>URL :</strong> <a class="details-link" [href]="personData.url" target="_blank" rel="noopener noreferrer">{{ personData.url }}</a></p>
   </section>
 } @else {
   <p>Chargement...</p>

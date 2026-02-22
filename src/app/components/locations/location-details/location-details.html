@@ -1,19 +1,21 @@
 @if (location; as locationData) {
   <section class="resource-details">
-    <a class="back-link" routerLink="/locations">← Retour à la liste</a>
+    <a class="back-link details-link" routerLink="/locations">← Retour à la liste</a>
 
     <h1>{{ locationData.name }}</h1>
 
     <p><strong>Id :</strong> {{ locationData.id }}</p>
-    <p><strong>Climat :</strong> {{ locationData.climate }}</p>
+    <p><strong>Climate :</strong> {{ locationData.climate }}</p>
     <p><strong>Terrain :</strong> {{ locationData.terrain }}</p>
-    <p><strong>Eau en surface :</strong> {{ locationData.surface_water }}</p>
+    <p><strong>Surface Water :</strong> {{ locationData.surface_water }}</p>
 
     <div>
-      <strong>Résidents :</strong>
+      <strong>Residents :</strong>
       <ul>
-        @for (resident of locationData.residents; track resident) {
-          <li>{{ resident }}</li>
+        @for (resident of residentLinks; track resident.route[1]) {
+          <li>
+            <a class="details-link" [routerLink]="resident.route">{{ resident.name }}</a>
+          </li>
         }
       </ul>
     </div>
@@ -21,13 +23,15 @@
     <div>
       <strong>Films :</strong>
       <ul>
-        @for (film of locationData.films; track film) {
-          <li>{{ film }}</li>
+        @for (film of filmLinks; track film.route[1]) {
+          <li>
+            <a class="details-link" [routerLink]="film.route">{{ film.name }}</a>
+          </li>
         }
       </ul>
     </div>
 
-    <p><strong>URL :</strong> <a [href]="locationData.url" target="_blank" rel="noopener noreferrer">{{ locationData.url }}</a></p>
+    <p><strong>URL :</strong> <a class="details-link" [href]="locationData.url" target="_blank" rel="noopener noreferrer">{{ locationData.url }}</a></p>
   </section>
 } @else {
   <p>Chargement...</p>

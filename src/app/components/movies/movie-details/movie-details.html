@@ -1,6 +1,6 @@
 @if (movie; as movieData) {
   <section class="movie-details">
-    <a class="back-link" routerLink="/list">← Retour à la liste</a>
+    <a class="back-link details-link" routerLink="/list">← Retour à la liste</a>
 
     <h1>{{ movieData.title }}</h1>
 
@@ -8,21 +8,21 @@
     <img [src]="movieData.image" [alt]="movieData.title" class="poster" />
 
     <p><strong>Id :</strong> {{ movieData.id }}</p>
-    <p><strong>Titre original :</strong> {{ movieData.original_title }}</p>
-    <p><strong>Titre romanisé :</strong> {{ movieData.original_title_romanised }}</p>
+    <p><strong>Original Title :</strong> {{ movieData.original_title }}</p>
+    <p><strong>Romanized Title :</strong> {{ movieData.original_title_romanised }}</p>
     <p><strong>Description :</strong> {{ movieData.description }}</p>
-    <p><strong>Réalisateur :</strong> {{ movieData.director }}</p>
-    <p><strong>Producteur :</strong> {{ movieData.producer }}</p>
-    <p><strong>Date de sortie :</strong> {{ movieData.release_date }}</p>
-    <p><strong>Durée :</strong> {{ movieData.running_time }} min</p>
-    <p><strong>Score RT :</strong> {{ movieData.rt_score }}</p>
-    <p><strong>URL :</strong> <a [href]="movieData.url" target="_blank" rel="noopener noreferrer">{{ movieData.url }}</a></p>
+    <p><strong>Director :</strong> {{ movieData.director }}</p>
+    <p><strong>Producer :</strong> {{ movieData.producer }}</p>
+    <p><strong>Release Date :</strong> {{ movieData.release_date }}</p>
+    <p><strong>Running Time :</strong> {{ movieData.running_time }} min</p>
+    <p><strong>RT Score :</strong> {{ movieData.rt_score }}</p>
+    <p><strong>URL :</strong> <a class="details-link" [href]="movieData.url" target="_blank" rel="noopener noreferrer">{{ movieData.url }}</a></p>
 
     <div>
       <strong>People :</strong>
       <ul>
-        @for (person of movieData.people; track person) {
-          <li>{{ person }}</li>
+        @for (person of peopleLinks; track person.id) {
+          <li><a class="details-link" [routerLink]="person.route">{{ person.name }}</a></li>
         }
       </ul>
     </div>
@@ -30,8 +30,8 @@
     <div>
       <strong>Species :</strong>
       <ul>
-        @for (specie of movieData.species; track specie) {
-          <li>{{ specie }}</li>
+        @for (specie of speciesLinks; track specie.id) {
+          <li><a class="details-link" [routerLink]="specie.route">{{ specie.name }}</a></li>
         }
       </ul>
     </div>
@@ -39,8 +39,8 @@
     <div>
       <strong>Locations :</strong>
       <ul>
-        @for (location of movieData.locations; track location) {
-          <li>{{ location }}</li>
+        @for (location of locationLinks; track location.id) {
+          <li><a class="details-link" [routerLink]="location.route">{{ location.name }}</a></li>
         }
       </ul>
     </div>
@@ -48,8 +48,8 @@
     <div>
       <strong>Vehicles :</strong>
       <ul>
-        @for (vehicle of movieData.vehicles; track vehicle) {
-          <li>{{ vehicle }}</li>
+        @for (vehicle of vehicleLinks; track vehicle.id) {
+          <li><a class="details-link" [routerLink]="vehicle.route">{{ vehicle.name }}</a></li>
         }
       </ul>
     </div>

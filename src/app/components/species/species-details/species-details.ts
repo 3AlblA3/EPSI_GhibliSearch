@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import type { Species } from '../../../interfaces/species';
-import { SpeciesService } from '../../../services/species.service';
+import { SpeciesService, type SpeciesRelatedLink } from '../../../services/species.service';
 
 @Component({
   selector: 'app-species-details',
@@ -18,6 +18,8 @@ export class SpeciesDetails {
   private readonly cdr = inject(ChangeDetectorRef);
 
   specie: Species | null = null;
+  peopleLinks: SpeciesRelatedLink[] = [];
+  filmLinks: SpeciesRelatedLink[] = [];
 
   constructor() {
     const speciesId = this.route.snapshot.paramMap.get('id');
@@ -29,8 +31,10 @@ export class SpeciesDetails {
     this.speciesService
       .getSpeciesById(speciesId)
       .pipe(takeUntilDestroyed())
-      .subscribe((specie) => {
-        this.specie = specie;
+      .subscribe(({ species, people, films }) => {
+        this.specie = species;
+        this.peopleLinks = people;
+        this.filmLinks = films;
         this.cdr.markForCheck();
       });
   }

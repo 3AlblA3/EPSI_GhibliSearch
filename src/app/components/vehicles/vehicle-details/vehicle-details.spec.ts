@@ -3,7 +3,7 @@ import type { ComponentFixture } from '@angular/core/testing';
 import { ActivatedRoute, convertToParamMap, provideRouter } from '@angular/router';
 import { of } from 'rxjs';
 import type { Vehicle } from '../../../interfaces/vehicle';
-import { VehiclesService } from '../../../services/vehicles.service';
+import { VehiclesService, type VehicleDetailsData } from '../../../services/vehicles.service';
 
 import { VehicleDetails } from './vehicle-details';
 
@@ -18,16 +18,22 @@ describe('VehicleDetails', () => {
     description: 'Un bus-chat magique',
     vehicle_class: 'Bus',
     length: '12',
-    pilot: 'pilot-url',
+    pilot: 'https://ghibliapi.dev/people/person-1',
     films: [],
     url: 'vehicle-url',
   };
 
   beforeEach(async () => {
+    const vehicleDetails: VehicleDetailsData = {
+      vehicle: mockVehicle,
+      pilot: { id: 'person-1', name: 'Satsuki', route: ['/people', 'person-1'] },
+      films: [],
+    };
+
     const vehiclesServiceMock: Pick<VehiclesService, 'getVehicle'> = {
       getVehicle: (id: string) => {
         requestedVehicleId = id;
-        return of(mockVehicle);
+        return of(vehicleDetails);
       },
     };
 

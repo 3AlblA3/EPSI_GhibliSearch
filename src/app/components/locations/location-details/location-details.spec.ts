@@ -27,7 +27,11 @@ describe('LocationDetails', () => {
     const locationsServiceMock: Pick<LocationsService, 'getLocation'> = {
       getLocation: (id: string) => {
         requestedLocationId = id;
-        return of(mockLocation);
+        return of({
+          location: mockLocation,
+          residents: [],
+          films: [],
+        });
       },
     };
 

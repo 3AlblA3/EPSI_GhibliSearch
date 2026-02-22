@@ -3,7 +3,7 @@ import type { ComponentFixture } from '@angular/core/testing';
 import { ActivatedRoute, convertToParamMap, provideRouter } from '@angular/router';
 import { of } from 'rxjs';
 import type { Species } from '../../../interfaces/species';
-import { SpeciesService } from '../../../services/species.service';
+import { SpeciesService, type SpeciesDetailsData } from '../../../services/species.service';
 
 import { SpeciesDetails } from './species-details';
 
@@ -24,10 +24,16 @@ describe('SpeciesDetails', () => {
   };
 
   beforeEach(async () => {
+    const speciesDetails: SpeciesDetailsData = {
+      species: mockSpecies,
+      people: [],
+      films: [],
+    };
+
     const speciesServiceMock: Pick<SpeciesService, 'getSpeciesById'> = {
       getSpeciesById: (id: string) => {
         requestedSpeciesId = id;
-        return of(mockSpecies);
+        return of(speciesDetails);
       },
     };
 

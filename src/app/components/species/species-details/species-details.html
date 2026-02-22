@@ -1,19 +1,19 @@
 @if (specie; as speciesData) {
   <section class="resource-details">
-    <a class="back-link" routerLink="/species">← Retour à la liste</a>
+    <a class="back-link details-link" routerLink="/species">← Retour à la liste</a>
 
     <h1>{{ speciesData.name }}</h1>
 
     <p><strong>Id :</strong> {{ speciesData.id }}</p>
     <p><strong>Classification :</strong> {{ speciesData.classification }}</p>
-    <p><strong>Yeux :</strong> {{ speciesData.eye_colors }}</p>
-    <p><strong>Cheveux :</strong> {{ speciesData.hair_colors }}</p>
+    <p><strong>Eye Color :</strong> {{ speciesData.eye_colors }}</p>
+    <p><strong>Hair Color :</strong> {{ speciesData.hair_colors }}</p>
 
     <div>
       <strong>People :</strong>
       <ul>
-        @for (person of speciesData.people; track person) {
-          <li>{{ person }}</li>
+        @for (person of peopleLinks; track person.id) {
+          <li><a class="details-link" [routerLink]="person.route">{{ person.name }}</a></li>
         }
       </ul>
     </div>
@@ -21,13 +21,13 @@
     <div>
       <strong>Films :</strong>
       <ul>
-        @for (film of speciesData.films; track film) {
-          <li>{{ film }}</li>
+        @for (film of filmLinks; track film.id) {
+          <li><a class="details-link" [routerLink]="film.route">{{ film.name }}</a></li>
         }
       </ul>
     </div>
 
-    <p><strong>URL :</strong> <a [href]="speciesData.url" target="_blank" rel="noopener noreferrer">{{ speciesData.url }}</a></p>
+    <p><strong>URL :</strong> <a class="details-link" [href]="speciesData.url" target="_blank" rel="noopener noreferrer">{{ speciesData.url }}</a></p>
   </section>
 } @else {
   <p>Chargement...</p>

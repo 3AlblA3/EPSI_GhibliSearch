@@ -18,8 +18,8 @@ describe('SpeciesService', () => {
     classification: 'Mammal',
     eye_colors: 'Brown',
     hair_colors: 'Brown',
-    people: [],
-    films: [],
+    people: ['https://ghibliapi.dev/people/person-1'],
+    films: ['https://ghibliapi.dev/films/movie-1'],
     url: 'species-url',
   };
 
@@ -54,7 +54,13 @@ describe('SpeciesService', () => {
   });
 
   it('should fetch one species by id', () => {
-    let result: Species | undefined;
+    let result:
+      | {
+          species: Species;
+          people: Array<{ id: string; name: string; route: string[] }>;
+          films: Array<{ id: string; name: string; route: string[] }>;
+        }
+      | undefined;
 
     service.getSpeciesById(mockSpecies.id).subscribe((species) => {
       result = species;
@@ -66,6 +72,18 @@ describe('SpeciesService', () => {
     expect(req.request.method).toBe('GET');
     req.flush(mockSpecies);
 
-    expect(result).toEqual(mockSpecies);
+    const peopleReq = httpMock.expectOne('https://ghibliapi.dev/people/person-1');
+    expect(peopleReq.request.method).toBe('GET');
+    peopleReq.flush({ name: 'San' });
+
+    const filmsReq = httpMock.expectOne('https://ghibliapi.dev/films/movie-1');
+    expect(filmsReq.request.method).toBe('GET');
+    filmsReq.flush({ title: 'Totoro' });
+
+    expect(result).toEqual({
+      species: mockSpecies,
+      people: [{ id: 'person-1', name: 'San', route: ['/people', 'person-1'] }],
+      films: [{ id: 'movie-1', name: 'Totoro', route: ['/movie', 'movie-1'] }],
+    });
   });
 });

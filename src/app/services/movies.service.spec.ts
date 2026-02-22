@@ -25,10 +25,10 @@ describe('MoviesService', () => {
     release_date: '1988',
     running_time: '86',
     rt_score: '93',
-    people: [],
-    species: [],
-    locations: [],
-    vehicles: [],
+    people: ['https://ghibliapi.dev/people/person-1'],
+    species: ['https://ghibliapi.dev/species/species-1'],
+    locations: ['https://ghibliapi.dev/locations/location-1'],
+    vehicles: ['https://ghibliapi.dev/vehicles/vehicle-1'],
     url: 'movie-url',
   };
 
@@ -63,7 +63,15 @@ describe('MoviesService', () => {
   });
 
   it('should fetch one movie by id', () => {
-    let result: Movie | undefined;
+    let result:
+      | {
+          movie: Movie;
+          people: Array<{ id: string; name: string; route: string[] }>;
+          species: Array<{ id: string; name: string; route: string[] }>;
+          locations: Array<{ id: string; name: string; route: string[] }>;
+          vehicles: Array<{ id: string; name: string; route: string[] }>;
+        }
+      | undefined;
 
     service.getMovie(mockMovie.id).subscribe((movie) => {
       result = movie;
@@ -73,6 +81,28 @@ describe('MoviesService', () => {
     expect(req.request.method).toBe('GET');
     req.flush(mockMovie);
 
-    expect(result).toEqual(mockMovie);
+    const peopleReq = httpMock.expectOne('https://ghibliapi.dev/people/person-1');
+    expect(peopleReq.request.method).toBe('GET');
+    peopleReq.flush({ name: 'Ashitaka' });
+
+    const speciesReq = httpMock.expectOne('https://ghibliapi.dev/species/species-1');
+    expect(speciesReq.request.method).toBe('GET');
+    speciesReq.flush({ name: 'Human' });
+
+    const locationsReq = httpMock.expectOne('https://ghibliapi.dev/locations/location-1');
+    expect(locationsReq.request.method).toBe('GET');
+    locationsReq.flush({ name: 'Irontown' });
+
+    const vehiclesReq = httpMock.expectOne('https://ghibliapi.dev/vehicles/vehicle-1');
+    expect(vehiclesReq.request.method).toBe('GET');
+    vehiclesReq.flush({ name: 'Catbus' });
+
+    expect(result).toEqual({
+      movie: mockMovie,
+      people: [{ id: 'person-1', name: 'Ashitaka', route: ['/people', 'person-1'] }],
+      species: [{ id: 'species-1', name: 'Human', route: ['/species', 'species-1'] }],
+      locations: [{ id: 'location-1', name: 'Irontown', route: ['/locations', 'location-1'] }],
+      vehicles: [{ id: 'vehicle-1', name: 'Catbus', route: ['/vehicles', 'vehicle-1'] }],
+    });
   });
 });

@@ -3,7 +3,7 @@ import type { ComponentFixture } from '@angular/core/testing';
 import { ActivatedRoute, convertToParamMap, provideRouter } from '@angular/router';
 import { of } from 'rxjs';
 import type { Person } from '../../../interfaces/person';
-import { PeopleService } from '../../../services/people.service';
+import { PeopleService, type PersonDetailsData } from '../../../services/people.service';
 
 import { PersonDetails } from './person-details';
 
@@ -20,15 +20,21 @@ describe('PersonDetails', () => {
     eye_color: 'Brown',
     hair_color: 'Brown',
     films: [],
-    species: 'Human',
+    species: 'https://ghibliapi.dev/species/species-1',
     url: 'person-url',
   };
 
   beforeEach(async () => {
+    const personDetails: PersonDetailsData = {
+      person: mockPerson,
+      species: { id: 'species-1', name: 'Human', route: ['/species', 'species-1'] },
+      films: [],
+    };
+
     const peopleServiceMock: Pick<PeopleService, 'getPerson'> = {
       getPerson: (id: string) => {
         requestedPersonId = id;
-        return of(mockPerson);
+        return of(personDetails);
       },
     };
 

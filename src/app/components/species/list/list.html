@@ -7,8 +7,10 @@
   </form>
 
   <ul class="resource-list">
-    <li *ngFor="let specie of filteredSpecies; trackBy: trackById">
-      <a [routerLink]="['/species', specie.id]" [textContent]="specie.name"></a>
+  @for(specie of filteredSpecies; track specie.id) {
+    <li>
+      <a class="details-link" [routerLink]="['/species', specie.id]" [textContent]="specie.name"></a>
     </li>
+  }
   </ul>
 </div>

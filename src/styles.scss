@@ -46,6 +46,15 @@ h3 {
   text-decoration: underline;
 }
 
+.details-link {
+  text-decoration: none;
+  color: var(--color-primary);
+}
+
+.details-link:hover {
+  text-decoration: underline;
+}
+
 
 .search-form {
   display: flex;

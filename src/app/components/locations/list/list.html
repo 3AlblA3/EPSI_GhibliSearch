@@ -7,8 +7,10 @@
   </form>
 
   <ul class="resource-list">
-    <li *ngFor="let location of filteredLocations; trackBy: trackById">
-      <a [routerLink]="['/locations', location.id]" [textContent]="location.name"></a>
+  @for(location of filteredLocations; track location.id) {
+    <li>
+      <a class="details-link" [routerLink]="['/locations', location.id]" [textContent]="location.name"></a>
     </li>
+  }
   </ul>
 </div>

@@ -3,7 +3,7 @@ import type { ComponentFixture } from '@angular/core/testing';
 import { ActivatedRoute, convertToParamMap, provideRouter } from '@angular/router';
 import { of } from 'rxjs';
 import type { Movie } from '../../../interfaces/movie';
-import { MoviesService } from '../../../services/movies.service';
+import { MoviesService, type MovieDetailsData } from '../../../services/movies.service';
 
 import { MovieDetails } from './movie-details';
 
@@ -33,10 +33,18 @@ describe('MovieDetails', () => {
   };
 
   beforeEach(async () => {
+    const movieDetails: MovieDetailsData = {
+      movie: mockMovie,
+      people: [],
+      species: [],
+      locations: [],
+      vehicles: [],
+    };
+
     const moviesServiceMock: Pick<MoviesService, 'getMovie'> = {
       getMovie: (id: string) => {
         requestedMovieId = id;
-        return of(mockMovie);
+        return of(movieDetails);
       },
     };
 

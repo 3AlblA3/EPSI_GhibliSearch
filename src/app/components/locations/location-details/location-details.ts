@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import type { Location } from '../../../interfaces/location';
-import { LocationsService } from '../../../services/locations.service';
+import { LocationsService, type LocationRelatedLink } from '../../../services/locations.service';
 
 @Component({
   selector: 'app-location-details',
@@ -18,6 +18,8 @@ export class LocationDetails {
   private readonly cdr = inject(ChangeDetectorRef);
 
   location: Location | null = null;
+  residentLinks: LocationRelatedLink[] = [];
+  filmLinks: LocationRelatedLink[] = [];
 
   constructor() {
     const locationId = this.route.snapshot.paramMap.get('id');
@@ -29,8 +31,11 @@ export class LocationDetails {
     this.locationsService
       .getLocation(locationId)
       .pipe(takeUntilDestroyed())
-      .subscribe((location) => {
+      .subscribe(({ location, residents, films }) => {
         this.location = location;
+        this.residentLinks = residents;
+        this.filmLinks = films;
+
         this.cdr.markForCheck();
       });
   }

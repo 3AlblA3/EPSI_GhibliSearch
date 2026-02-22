@@ -18,8 +18,8 @@ describe('VehiclesService', () => {
     description: 'Un bus-chat magique',
     vehicle_class: 'Bus',
     length: '12',
-    pilot: 'pilot-url',
-    films: [],
+    pilot: 'https://ghibliapi.dev/people/person-1',
+    films: ['https://ghibliapi.dev/films/movie-1'],
     url: 'vehicle-url',
   };
 
@@ -54,7 +54,13 @@ describe('VehiclesService', () => {
   });
 
   it('should fetch one vehicle by id', () => {
-    let result: Vehicle | undefined;
+    let result:
+      | {
+          vehicle: Vehicle;
+          pilot: { id: string; name: string; route: string[] } | null;
+          films: Array<{ id: string; name: string; route: string[] }>;
+        }
+      | undefined;
 
     service.getVehicle(mockVehicle.id).subscribe((vehicle) => {
       result = vehicle;
@@ -66,6 +72,18 @@ describe('VehiclesService', () => {
     expect(req.request.method).toBe('GET');
     req.flush(mockVehicle);
 
-    expect(result).toEqual(mockVehicle);
+    const pilotReq = httpMock.expectOne('https://ghibliapi.dev/people/person-1');
+    expect(pilotReq.request.method).toBe('GET');
+    pilotReq.flush({ name: 'Satsuki' });
+
+    const filmsReq = httpMock.expectOne('https://ghibliapi.dev/films/movie-1');
+    expect(filmsReq.request.method).toBe('GET');
+    filmsReq.flush({ title: 'Totoro' });
+
+    expect(result).toEqual({
+      vehicle: mockVehicle,
+      pilot: { id: 'person-1', name: 'Satsuki', route: ['/people', 'person-1'] },
+      films: [{ id: 'movie-1', name: 'Totoro', route: ['/movie', 'movie-1'] }],
+    });
   });
 });
