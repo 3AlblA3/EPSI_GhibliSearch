@@ -12,7 +12,7 @@ Fonctionnalités:
     -Utilisation des switchMap pour effectuer des requêtes croisées.
 
 Difficultés rencontrées:
-    -Gestion des requêtes croisées avec switchMap et forkJoin. (Pour le coup, utilisation de l'IA et doc Angular pour me renseigner sur leur utilisation et de la manière la plus efficace d'arriver à ce que je voulais)
+    -Gestion des requêtes croisées avec switchMap et forkJoin. (Pour le coup, utilisation de l'IA et doc Angular pour me renseigner sur leur utilisation et de la manière la plus efficace d'arriver à ce que je voulais).
 
 Voies d'améliorations:
     -Création d'un formulaire de connexion / création de compte (mais nécéssite un backend)
